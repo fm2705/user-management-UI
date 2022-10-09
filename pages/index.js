@@ -1,4 +1,5 @@
 import Head from 'next/head'
+import Navbar from '../components/Navbar'
 
 export default function Home() {
   return (
@@ -6,6 +7,7 @@ export default function Home() {
       <Head>
         <title>User management App</title>      
       </Head>
+      <Navbar />
 
       <main>
       </main>
