@@ -13,6 +13,9 @@ const AddUser = () => {
     lastName: "",
     emailId: "",
   });
+
+  //whenever new user is added,state gets upadted
+  //we pass this state as props to the UserList
   const [responseUser, setResponseUser] = useState({
     id: "",
     firstName: "",
@@ -154,9 +157,10 @@ const AddUser = () => {
           </div>
         </Dialog>
       </Transition>
+      <UserList 
       //list the users by passing the prop
-      //At the UserList component take the user as a props
-      <UserList user={responseUser} />
+       //At the UserList component take the user as a props
+      user={responseUser} />
     </>
   );
 };

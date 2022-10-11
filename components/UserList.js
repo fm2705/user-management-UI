@@ -2,16 +2,20 @@ import { React, useState, useEffect } from "react";
 import EditUser from "./EditUser";
 import User from "./User";
 
+//pass user as a prop user
 const UserList = ({ user }) => {
   const USER_API_BASE_URL = "http://localhost:8080/api/v1/users";
   const [users, setUsers] = useState(null);
   const [loading, setLoading] = useState(true);
+  //set state when update user
   const [userId, setUserId] = useState(null);
+  //set state on whatever response you are getting back ex update user
   const [responseUser, setResponseUser] = useState(null);
 
   //when this component is callesd we will be able to get the data
   //This particular hook will be called
   //whatever data we get here we have to pass it to user component
+  //whenever there is an update in user or responseUser it will fetch the data and it will update the data
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
@@ -30,8 +34,29 @@ const UserList = ({ user }) => {
       setLoading(false);
     };
     fetchData();
+    //whenever there is an update in the user, that particular field will be updated
+    //use the user prop as a dependency to load the data instantly
   }, [user, responseUser]);
 
+
+  const deleteUser = (e, id) => {
+    e.preventDefault();
+    fetch(USER_API_BASE_URL + "/" + id, {
+      method: "DELETE",
+    }).then((res) => {
+        //it gets deleted from backend and now delete it from front end (filter out the data)
+      if (users) {
+        setUsers((prevElement) => {
+          return prevElement.filter((user) => user.id !== id);
+        });
+      }
+    });
+  };
+
+  const editUser = (e, id) => {
+    e.preventDefault();
+    setUserId(id);
+  };
 
   return (
     <>
@@ -61,6 +86,8 @@ const UserList = ({ user }) => {
                   <User
                     user={user}
                     key={user.id} //every component should have a key
+                    deleteUser={deleteUser}
+                    editUser={editUser}
                   />
                 ))}
               </tbody>
@@ -68,7 +95,12 @@ const UserList = ({ user }) => {
           </table>
         </div>
       </div>
-      <EditUser userId={userId} setResponseUser={setResponseUser} />
+
+      <EditUser 
+            //setResponseUser will update the state in the parent component
+      userId={userId} 
+      setResponseUser={setResponseUser} 
+      />      
     </>
   );
 };
