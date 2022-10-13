@@ -102,9 +102,9 @@ const AddUser = () => {
                   Add new User
                 </Dialog.Title>
 
-                //create the form of the model
+                
                 <div className="flex max-w-md max-auto"> 
-                  <div className="py-2"> //margin in y direction
+                  <div className="py-2"> 
                     <div className="h-14 my-4">
                       <label className="block text-gray-600 text-sm font-normal">
                         First Name
