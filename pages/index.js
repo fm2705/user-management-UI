@@ -2,13 +2,14 @@ import { getSession } from 'next-auth/react';
 import Head from 'next/head'
 import AddUser from '../components/AddUser'
 import Login from '../components/Login';
+import Login2 from '../components/Login2';
 import Navbar from '../components/Navbar'
 import UserList from '../components/UserList'
 
 //define server side rendering 
 export default function Home({session}) {
   console.log({session});
-  if (!session) return <Login />;
+  if (!session) return <Login2 />;
   return (
     <div>
       <Head>
